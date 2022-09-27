@@ -45,7 +45,7 @@ public class Process {
                     System.out.println("You chose to delete nothing.");
                     break;
                 } 
-                if (deleteNumber > mylist.getSize() || deleteNumber < 0) { // create issue
+                if (deleteNumber > mylist.getSize() || deleteNumber < 0) {
                     System.out.println("The event you chose to delete doesn't exist");
                     break;
                 }
@@ -66,7 +66,7 @@ public class Process {
                     System.out.println("\nYou chose to access nothing.");
                     break;
                 }
-                if (accessNumber > mylist.getSize() || accessNumber < 0) { //issue
+                if (accessNumber > mylist.getSize() || accessNumber < 0) {
                     System.out.println("You chose an impossible index");
                     break;
                 }
