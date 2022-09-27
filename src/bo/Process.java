@@ -18,9 +18,11 @@ public class Process {
             String choice = scanner.nextLine();
             choice = choice.toLowerCase();
 
-            if (choice.equals("c")) {
+            switch(choice) {
+
+            case "c":
                 System.out.println(
-                        "You chose you wanted to create a new event.\n\n- You will need a title aswell as a description.");
+                            "You chose to create a new event.\n\n- You will need a title as well as a description.");
                 System.out.print("Please choose your event title :");
                 String title = scanner.nextLine();
                 System.out.print("Please choose your description :");
@@ -28,72 +30,87 @@ public class Process {
                 Event event = new Event(title, description);
                 mylist.addEvent(event);
                 System.out.println("The event has been created succesfully !\n");
-            } else if (choice.equals("d")) {
+                break;
+            case "d":
                 if (mylist.getSize() == 0) {
                     System.out.println("You don't have any Events to delete. Please add Events in the first place.\n");
-                } else {
-                    mylist.arrayPrint();
-                    System.out.println(
-                            "Please pick the number of the Event you want to delete. Note that if you want to delete none, you can type 0.");
-                    String deleteString = scanner.nextLine();
-                    int deleteNumber = Integer.parseInt(deleteString);
-                    if (deleteNumber == 0) {
-                        System.out.println("You chose to delete nothing.");
-                    } else if (deleteNumber > mylist.getSize() || deleteNumber < 0) {
-                        System.out.println("You chose an impossible index");
-                    } else {
-                        mylist.removeEvent(deleteNumber - 1);
-                        System.out.println("The event number " + deleteNumber + " has been deleted succesfully.");
-                    }
+                    break;
                 }
-            } else if (choice.equals("a")) {
+                mylist.arrayPrint();
+                System.out.println(
+                        "Please pick the number of the Event you want to delete. Note that if you want to delete none, you can type 0.");
+                String deleteString = scanner.nextLine();
+                int deleteNumber = Integer.parseInt(deleteString);
+                if (deleteNumber == 0) {
+                    System.out.println("You chose to delete nothing.");
+                    break;
+                } 
+                if (deleteNumber > mylist.getSize() || deleteNumber < 0) { // create issue
+                    System.out.println("The event you chose to delete doesn't exist");
+                    break;
+                }
+                mylist.removeEvent(deleteNumber - 1);
+                System.out.println("The event N°" + deleteNumber + " has been deleted succesfully.");
+                break;
+            case "a":
                 if (mylist.getSize() == 0) {
                     System.out.println("You don't have any Events to access. Please add Events in the first place.\n");
-                } else {
-                    mylist.arrayPrint();
-                    System.out.println(
-                            "Please pick the number of the Event you want to access, Note that if you want to access none, you can type 0.");
-                    String accessString = scanner.nextLine();
-                    int accessNumber = Integer.parseInt(accessString);
-                    String choice2;
-                    if (accessNumber == 0) {
-                        System.out.println("\nYou chose to access nothing.");
-                    } else if (accessNumber > mylist.getSize() || accessNumber < 0) {
-                        System.out.println("You chose an impossible index");
-                    } else {
-                        System.out.println("\nHere is the event you wanted :");
-                        mylist.eventPrint(accessNumber - 1);
-                        do {
-                            System.out.println(
-                                    "\n- If you want to change it's Title and Description, please type C,\n- If you want to change it's state, please type S,\n- If you want to see the update history, please type H,\n- If you want to quit, please type Q");
-                            choice2 = scanner.nextLine();
-                            choice2 = choice2.toLowerCase();
-                        } while (!(choice2.equals("c")) && !(choice2.equals("s")) && !(choice2.equals("h"))
-                                && !(choice2.equals("q")));
-                        if (choice2.equals("c")) {
-                            System.out.print("Please choose your event title :");
-                            String title = scanner.nextLine();
-                            System.out.print("Please choose your description :");
-                            String description = scanner.nextLine();
-                            mylist.getEvent(accessNumber - 1).changeEvent(title, description);
-                            System.out.println("The Event has been updated succesfully !\n");
-                        } else if (choice2.equals("s")) {
-                            mylist.getEvent(accessNumber - 1).stateChanger();
-                            System.out.println("The state have been changed succesfully !\n");
-                        } else if (choice2.equals("q")) {
-                            System.out.println("You chose to quit.\n");
-                        } else if (choice2.equals("h")) {
-                            System.out.println("\nHere is the history of you Event :");
-                            mylist.getEvent(accessNumber - 1).printHistory();
-                        }
-                    }
+                    break;
                 }
-            } else if (choice.equals("q")) {
-                quit = true;
+                mylist.arrayPrint();
+                System.out.println(
+                        "Please pick the number of the Event you want to access, Note that if you want to access none, you can type 0.");
+                String accessString = scanner.nextLine();
+                int accessNumber = Integer.parseInt(accessString);
+                if (accessNumber == 0) {
+                    System.out.println("\nYou chose to access nothing.");
+                    break;
+                }
+                if (accessNumber > mylist.getSize() || accessNumber < 0) { //issue
+                    System.out.println("You chose an impossible index");
+                    break;
+                }
+                System.out.println("\nHere is the event you wanted :");
+                mylist.eventPrint(accessNumber - 1);
+                String eventPickChoice;
+                do {
+                    System.out.println(
+                            "\n- If you want to change it's Title and Description, please type C,\n- If you want to change it's state, please type S,\n- If you want to see the update history, please type H,\n- If you want to quit, please type Q");
+                    eventPickChoice = scanner.nextLine();
+                    eventPickChoice = eventPickChoice.toLowerCase();
+                } while (!(eventPickChoice.equals("c")) && !(eventPickChoice.equals("s")) && !(eventPickChoice.equals("h"))
+                        && !(eventPickChoice.equals("q")));
+                switch(eventPickChoice) {
+                    case "c":
+                        System.out.print("Please choose your event title :");
+                        String modifiedTitle = scanner.nextLine();
+                        System.out.print("Please choose your description :");
+                        String modifiedDescription = scanner.nextLine();
+                        mylist.getEvent(accessNumber - 1).changeEvent(modifiedTitle, modifiedDescription);
+                        System.out.println("The Event has been updated succesfully !\n");
+                        break;
+                    case "s":
+                        mylist.getEvent(accessNumber - 1).stateChanger();
+                        System.out.println("The state have been changed succesfully !\n");
+                        break;
+                    case "q":
+                        System.out.println("You chose to quit.\n");
+                        break;
+                    case "h":
+                        System.out.println("\nHere is the history of you Event :");
+                        mylist.getEvent(accessNumber - 1).printHistory();
+                        break;
+                }
+                break;
+            case "q":
                 System.out.println("You ended the process, the program is going to stop.");
-            } else {
+                quit = true;
+                break;
+            default:
                 System.out.println("What you typed isn't correct, please pick again.\n");
+                break;
             }
         }
+        scanner.close();
     }
 }

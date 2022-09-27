@@ -1,6 +1,5 @@
 package go;
 
-import bo.*;
 import bo.Process;
 
 public class main {
