@@ -15,19 +15,19 @@ public class Process {
         while (quit == false) {
             System.out.print(
                     "- If you want to create a new Event, please type C,\n- If you want to delete an Event, plase type D, \n- If you want to see the available Events, please type A, \n- If you desire to quit the program, type Q.\n");
-            String choice = scanner.nextLine();
-            choice = choice.toLowerCase();
+            String optionchoice = scanner.nextLine();
+            optionchoice = optionchoice.toLowerCase();
 
-            switch(choice) {
+            switch(optionchoice) {
 
             case "c":
                 System.out.println(
                             "You chose to create a new event.\n\n- You will need a title as well as a description.");
                 System.out.print("Please choose your event title :");
-                String title = scanner.nextLine();
+                String taskOriginalTitle = scanner.nextLine();
                 System.out.print("Please choose your description :");
-                String description = scanner.nextLine();
-                Event event = new Event(title, description);
+                String taskOriginalDescription = scanner.nextLine();
+                Event event = new Event(taskOriginalTitle, taskOriginalDescription);
                 mylist.addEvent(event);
                 System.out.println("The event has been created succesfully !\n");
                 break;
@@ -72,21 +72,21 @@ public class Process {
                 }
                 System.out.println("\nHere is the event you wanted :");
                 mylist.eventPrint(accessNumber - 1);
-                String eventPickChoice;
+                String pickedEvent;
                 do {
                     System.out.println(
                             "\n- If you want to change it's Title and Description, please type C,\n- If you want to change it's state, please type S,\n- If you want to see the update history, please type H,\n- If you want to quit, please type Q");
-                    eventPickChoice = scanner.nextLine();
-                    eventPickChoice = eventPickChoice.toLowerCase();
-                } while (!(eventPickChoice.equals("c")) && !(eventPickChoice.equals("s")) && !(eventPickChoice.equals("h"))
-                        && !(eventPickChoice.equals("q")));
-                switch(eventPickChoice) {
+                    pickedEvent = scanner.nextLine();
+                    pickedEvent = pickedEvent.toLowerCase();
+                } while (!(pickedEvent.equals("c")) && !(pickedEvent.equals("s")) && !(pickedEvent.equals("h"))
+                        && !(pickedEvent.equals("q")));
+                switch(pickedEvent) {
                     case "c":
                         System.out.print("Please choose your event title :");
-                        String modifiedTitle = scanner.nextLine();
+                        String taskModifiedTitle = scanner.nextLine();
                         System.out.print("Please choose your description :");
-                        String modifiedDescription = scanner.nextLine();
-                        mylist.getEvent(accessNumber - 1).changeEvent(modifiedTitle, modifiedDescription);
+                        String taskModifiedDescription = scanner.nextLine();
+                        mylist.getEvent(accessNumber - 1).changeEvent(taskModifiedTitle, taskModifiedDescription);
                         System.out.println("The Event has been updated succesfully !\n");
                         break;
                     case "s":
